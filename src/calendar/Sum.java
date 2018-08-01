@@ -3,7 +3,8 @@ package calendar;
 import java.util.Scanner;
 
 public class Sum {
-	public static void main (String[] arguments) {
+	public static void main (String[] args) {
+		System.out.println("두수를 입력하세요 : ");
 		Scanner scanner = new Scanner(System.in);
 		String inputValue = scanner.nextLine();
 		String[] strNum = inputValue.split(" ");
