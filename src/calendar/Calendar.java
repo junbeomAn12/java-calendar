@@ -1,15 +1,37 @@
 package calendar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 //import java.util.Scanner;
+import java.util.Date;
+import java.util.HashMap;
 
 public class Calendar {
 	private static final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	private static final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
+	private HashMap<Date, String> planMap;
+
+	public Calendar() {
+		planMap = new HashMap<Date, String>();
+	}
+
 	public boolean isLeapYear(int year) {
 		return year % 4 == 0 ? (year % 100 != 0 || year % 400 == 0) : false;
 
+	}
+
+	public void registerPlan(String strDate, String plan) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		planMap.put(date, plan);
+	}
+
+	public String searchDate(String strDate) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		String plan = planMap.get(date);
+//		System.out.println(plan);
+		return plan;
 	}
 
 	public int getMaxDaysOfMonth(int year, int month) {
@@ -20,8 +42,8 @@ public class Calendar {
 	}
 
 	public int getFirstDayOfMonth(int year, int month) {
-		
-		int result = (year - 1)*365 + ((year - 1)/4 - (year - 1)/100 + (year - 1)/400);
+
+		int result = (year - 1) * 365 + ((year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400);
 		for (int i = 1; i < month; i++) {
 
 			result = result + getMaxDaysOfMonth(year, i);
@@ -58,6 +80,10 @@ public class Calendar {
 			}
 		}
 		System.out.println();
+	}
+
+	public static void main(String[] args) throws ParseException {
+//		registerPlan("2018-08-03", "GoGoGo");
 	}
 
 }
